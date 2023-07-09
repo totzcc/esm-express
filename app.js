@@ -6,7 +6,7 @@ import routes from "./routes/index.js";
 import fs from "fs";
 import util from "util";
 
-const loggerFile = fs.createWriteStream('console.log', {flags: 'a'})
+const loggerFile = fs.createWriteStream('c.log', {flags: 'a'})
 console.log = function (...data) {
     if (data.length === 1) {
         data = data[0]
