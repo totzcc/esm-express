@@ -14,7 +14,8 @@
     "morgan": "~1.9.1",
     "mysql2": "^3.4.5",
     "redis": "^4.6.7",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "winston": "^3.9.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

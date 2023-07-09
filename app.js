@@ -3,6 +3,19 @@ import express from "express";
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import routes from "./routes/index.js";
+import fs from "fs";
+import util from "util";
+
+const loggerFile = fs.createWriteStream('console.log', {flags: 'a'})
+console.log = function (...data) {
+    if (data.length === 1) {
+        data = data[0]
+    }
+    const str = typeof (data) === 'string' ? data : util.inspect(data) + '\n'
+    loggerFile.write(str)
+    console.info(str)
+}
+console.error = console.log
 
 const app = express()
 const port = process.env.PORT || '80'
@@ -102,4 +115,3 @@ app.use((req, res) => {
         })
     }
 });
-export default app
