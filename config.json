@@ -1,0 +1,18 @@
+{
+  "redis": {
+    "prefix": "xxx",
+    "url": "redis://r-xxx.redis.rds.xxx.com:6379/0",
+    "password": "xxx:xxx"
+  },
+  "mysql": {
+    "host": "rm-xxx.mysql.rds.xxx.com",
+    "user": "xxx",
+    "password": "xxx",
+    "port": 3306,
+    "database": "xxx"
+  },
+  "jwt": {
+    "secret": "xxx",
+    "expressIn": 259200
+  }
+}
