@@ -11,7 +11,7 @@ console.log = function (...data) {
     if (data.length === 1) {
         data = data[0]
     }
-    const str = typeof (data) === 'string' ? data : util.inspect(data) + '\n'
+    const str = (typeof (data) === 'string' ? data : util.inspect(data)) + '\n'
     loggerFile.write(str)
     console.info(str)
 }
