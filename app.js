@@ -1,10 +1,13 @@
+#!/usr/bin/env node
 import express from "express";
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import routes from "./routes/index.js";
 
 const app = express()
-app.listen(process.env.PORT || '80')
+const port = process.env.PORT || '80'
+console.log('run on ' + port)
+app.listen(port)
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
