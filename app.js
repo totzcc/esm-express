@@ -7,13 +7,14 @@ import fs from "fs";
 import util from "util";
 
 const loggerFile = fs.createWriteStream('c.log', {flags: 'a'})
+const originLog = console.log
 console.log = function (...data) {
     if (data.length === 1) {
         data = data[0]
     }
     const str = (typeof (data) === 'string' ? data : util.inspect(data)) + '\n'
     loggerFile.write(str)
-    console.info(str)
+    originLog(str)
 }
 console.error = console.log
 
@@ -51,7 +52,8 @@ routes.forEach(handler => {
                 res.header('X-Time', Date.now() - st)
             }
         }
-        const sendSuccess = (res, data) => {
+        const sendSuccess = (res, data, st) => {
+            systemStatus(res, st)
             if (!res.finished) {
                 if (data === undefined) {
                     res.send('')
@@ -67,7 +69,8 @@ routes.forEach(handler => {
                 }
             }
         }
-        const sendError = (res, e) => {
+        const sendError = (res, e, st) => {
+            systemStatus(res, st)
             if (e.message.indexOf('wtf') === -1) {
                 console.error(e)
             }
@@ -83,14 +86,12 @@ routes.forEach(handler => {
             const st = Date.now()
             try {
                 const value = handlerValue(req, res)
-                systemStatus(res, st)
                 if (value instanceof Promise) {
                     sendSuccess(res, await value, st)
                 } else {
                     sendSuccess(res, value, st)
                 }
             } catch (e) {
-                systemStatus(res, st)
                 sendError(res, e, st)
             }
         }
