@@ -6,6 +6,7 @@ import routes from "./routes/index.js";
 import fs from "fs";
 import util from "util";
 
+process.env.TZ = 'Asia/Shanghai'
 const loggerFile = fs.createWriteStream('c.log', {flags: 'a'})
 const originLog = console.log
 console.log = function (...data) {

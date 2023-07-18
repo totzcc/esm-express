@@ -3,6 +3,7 @@ import mysql from 'mysql2/promise.js'
 
 const require = createRequire(import.meta.url)
 const config = require('../config.json')
+process.env.TZ = 'Asia/Shanghai'
 
 class BizMysql {
     constructor(databaseConfig) {
