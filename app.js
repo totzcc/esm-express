@@ -13,12 +13,15 @@ console.log = function (...data) {
     if (data.length === 1) {
         data = data[0]
     }
-    const str = (typeof (data) === 'string' ? data : util.inspect(data)) + '\n'
-    loggerFile.write(str)
+    const str = (typeof (data) === 'string' ? data : util.inspect(data))
+    loggerFile.write(str + '\n')
     originLog(str)
 }
 console.error = console.log
 
+process.on('uncaughtException', (e) => {
+    console.log('uncaughtException', e)
+})
 const app = express()
 const port = process.env.PORT || '80'
 console.log('run on ' + port)
@@ -93,6 +96,9 @@ routes.forEach(handler => {
                     sendSuccess(res, value, st)
                 }
             } catch (e) {
+                if (typeof(e) === 'string') {
+                    e = {message: e}
+                }
                 sendError(res, e, st)
             }
         }
