@@ -7,17 +7,19 @@ import fs from "fs";
 import util from "util";
 
 process.env.TZ = 'Asia/Shanghai'
-const loggerFile = fs.createWriteStream('c.log', {flags: 'a'})
-const originLog = console.log
-console.log = function (...data) {
-    if (data.length === 1) {
-        data = data[0]
+if (fs.realpathSync(".").indexOf("/root") !== -1) {
+    const loggerFile = fs.createWriteStream('c.log', {flags: 'a'})
+    const originLog = console.log
+    console.log = function (...data) {
+        if (data.length === 1) {
+            data = data[0]
+        }
+        const str = (typeof (data) === 'string' ? data : util.inspect(data))
+        loggerFile.write(str + '\n')
+        originLog(str)
     }
-    const str = (typeof (data) === 'string' ? data : util.inspect(data))
-    loggerFile.write(str + '\n')
-    originLog(str)
+    console.error = console.log
 }
-console.error = console.log
 
 process.on('uncaughtException', (e) => {
     console.log('uncaughtException', e)
