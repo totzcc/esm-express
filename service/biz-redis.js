@@ -1,8 +1,7 @@
 import Redis from 'redis'
-import {createRequire} from "module";
+import common from "./common.js";
 
-const require = createRequire(import.meta.url)
-const redisConfig = require('../config.json').redis
+const redisConfig = common.getConfig()
 
 class BizRedis {
     constructor() {

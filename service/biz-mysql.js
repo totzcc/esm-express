@@ -1,8 +1,7 @@
-import {createRequire} from "module";
 import mysql from 'mysql2/promise.js'
+import common from "./common.js";
 
-const require = createRequire(import.meta.url)
-const config = require('../config.json')
+const config = common.getConfig()
 process.env.TZ = 'Asia/Shanghai'
 
 class BizMysql {
